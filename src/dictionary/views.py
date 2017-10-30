@@ -1,6 +1,6 @@
 from flask import Flask, abort, request, jsonify
 from dictionary.database import row_by_key, add_row, update_row, delete_row
-from dictionary.helpers import parse_request
+from dictionary.helpers import parse_request, get_time
 
 __all__ = ['app']
 
@@ -19,7 +19,7 @@ def request_get(key):
     else:
         key, value = row
 
-    return jsonify({'key': key, 'value': value})
+    return jsonify({'key': key, 'value': value, 'time': get_time()})
 
 
 @app.route('/dictionary', methods=['POST'])
@@ -40,7 +40,7 @@ def request_post():
 
     add_row(key, value)
 
-    return ''
+    return jsonify({'key': key, 'value': value, 'time': get_time()})
 
 
 @app.route('/dictionary/<key>', methods=['PUT'])
@@ -60,7 +60,7 @@ def request_put(key):
 
     update_row(key, value)
 
-    return ''
+    return jsonify({'key': key, 'value': value, 'time': get_time()})
 
 
 @app.route('/dictionary/<key>', methods=['DELETE'])

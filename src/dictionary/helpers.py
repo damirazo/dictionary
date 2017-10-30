@@ -1,9 +1,10 @@
 # coding: utf-8
+import datetime
 import json
 
 
 def parse_request(data, context_keys):
-    u"""
+    """
     Пробуем распарсить запрос
     Нас интересуют параметры с именами key и value
     """
@@ -15,3 +16,10 @@ def parse_request(data, context_keys):
         return
 
     return dct
+
+
+def get_time():
+    """
+    Текущая дата и время в формате ГГГГ-мм-ДД ЧЧ:ММ
+    """
+    return datetime.datetime.now().strftime('%Y-%m-%d %H:%M')
